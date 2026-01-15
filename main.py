@@ -3,8 +3,7 @@ from src.data.preprocess import data_preprocess
 
 
 def main():
-    df = load_data()
-    data_preprocess()
+    df = data_preprocess()
 
 
 if __name__ == "__main__":
