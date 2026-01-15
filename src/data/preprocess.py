@@ -21,7 +21,9 @@ def data_preprocess() -> DataframeWrapper:
     df.drop(indices_to_drop, inplace=True)
     print(f'Remove cholesterol values of 0: {len(df[df["Cholesterol"] == 0])}')
     print(f"Shape of the Data: {df.shape}")
+    x = df.iloc[:, :-1]
+    y = df.iloc[:, -1]
 
-    train, test = train_test_split(df, test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=32)
 
-    return DataframeWrapper(df=df, train_data=train, test_data=test)
+    return DataframeWrapper(df=df, train_data=X_train, test_data=X_test, train_labels=y_train, test_labels=y_test)

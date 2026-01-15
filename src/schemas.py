@@ -7,5 +7,7 @@ class DataframeWrapper(BaseModel):
     df: pd.DataFrame
     train_data: pd.DataFrame
     test_data: pd.DataFrame
+    train_labels: pd.Series
+    test_labels: pd.Series
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
