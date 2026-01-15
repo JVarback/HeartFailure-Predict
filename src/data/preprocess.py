@@ -1,8 +1,16 @@
-from src.data.load_data import load_data
+import sys
+from pathlib import Path
 import pandas as pd
+from sklearn.model_selection import train_test_split
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJECT_ROOT))
+
+from src.data.load_data import load_data
+from src.schemas import DataframeWrapper
 
 
-def data_preprocess() -> pd.DataFrame:
+def data_preprocess() -> DataframeWrapper:
     df = load_data()
     print(f"Shape of the Data: {df.shape}")
     print(df.head(5))
@@ -14,4 +22,6 @@ def data_preprocess() -> pd.DataFrame:
     print(f'Remove cholesterol values of 0: {len(df[df["Cholesterol"] == 0])}')
     print(f"Shape of the Data: {df.shape}")
 
-    return df
+    train, test = train_test_split(df, test_size=0.2)
+
+    return DataframeWrapper(df=df, train_data=train, test_data=test)
